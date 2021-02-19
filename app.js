@@ -100,9 +100,9 @@ const boardObject = () => {
         })();
         
         (function drawBoard() {
-        const gridElement = document.querySelector('.container');
+        const gridElement = document.querySelector('.board');
             gridElement.innerHTML = "";
-            for (let i = 0; i <= boardState.length; i++) {
+            for (let i = 0; i <= boardState.length-1; i++) {
                 const grid = document.createElement('div');
                 gridElement.appendChild(grid);
                 grid.classList.add('box');
