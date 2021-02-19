@@ -13,7 +13,11 @@
   }
   
   .box{
-    border: 1px solid salmon;
+    border: 5px solid salmon;
     font-size: 12rem;
     text-align: center;
+  }
+
+  .header {
+
   }
