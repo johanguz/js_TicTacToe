@@ -1,4 +1,5 @@
 let players = [];
+let turn = true;
 
 const beginningState = () => {
     const gridHeader = document.querySelector('.header');
@@ -18,6 +19,7 @@ const beginningState = () => {
         </div>
     </div>
 </div>
+
             `
     const player1Input = document.querySelector('.player1');
          player1Input.addEventListener("keypress", (e) => {
@@ -49,18 +51,75 @@ if (players.length === 2) {
 beginningState();
 
 const boardObject = () => {
-    if (players.length === 2) {
-    const gridElement = document.querySelector('.container');
-    let boardState = [null, null, null, null, null, null, null, null, null];
+    let player1;
+    let player2;
+    let boardState = ["", "", "", "", "", "", "", "", ""];
+
+ if (players.length === 2) {
+
+        (() => {
+            if (players[0].piece === "X") {
+            player1 = players[0].name;
+            player2 = players[1].name;
+        }
+        else {
+            player2 = players[0].name;
+            player1 = players[1].name;
+        }})();
+
+    function turnDisplay (turn) {
+            if (turn) {
+                const turnElement = document.querySelector('.turn');
+                    turnElement.innerHTML = `
+                        <div class="container-fluid">
+                        <div class="row">
+                        <div class="col-12 player1">
+                            <h1>It's ${player1}'s turn</h1>
+                        </div>
+                        </div>
+                        </div>`
+                }
+            else {
+                const turnElement = document.querySelector('.turn');
+                    turnElement.innerHTML = `
+                        <div class="container-fluid">
+                        <div class="row">
+                        <div class="col-12 player2">
+                            <h1>It's ${player2}'s turn</h1>
+                        </div>
+                        </div>
+                        </div>`
+            }
+
+            
+        }
+        
         (function newBoard () {
-            boardState = [null, null, null, null, null, null, null, null, null];
+            boardState = ["", "", "", "", "", "", "", "", ""];
+            turnDisplay(turn);
         })();
-    
+        
         (function drawBoard() {
+        const gridElement = document.querySelector('.container');
+            gridElement.innerHTML = "";
             for (let i = 0; i <= boardState.length; i++) {
                 const grid = document.createElement('div');
                 gridElement.appendChild(grid);
                 grid.classList.add('box');
+                grid.addEventListener("click", () => {
+                    if (turn) {
+                        boardState[i] = "X";
+                        turn = false;
+                        drawBoard();
+                        turnDisplay(turn);
+                    }
+                    else {
+                        boardState[i] = "O";
+                        turn = true;
+                        drawBoard();
+                        turnDisplay(turn);
+                    }
+                })
                 if (boardState[i] === null) {
                     grid.innerHTML = "";
                 }
@@ -76,11 +135,11 @@ const boardObject = () => {
         }
 }
 
-const playGame = (params) => {
-    let player1 = players[0];
-    let player2 = players[1];   
-    boardObject();
-}
+// const playGame = (params) => {
+//     let player1 = players[0];
+//     let player2 = players[1];   
+//     boardObject();
+//     }
 
 function playerFactory(name, piece) {
     const getName = () => name;

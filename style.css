@@ -14,10 +14,20 @@
   
   .box{
     border: 5px solid salmon;
-    font-size: 12rem;
+    font-size: 10rem;
     text-align: center;
   }
 
   .header {
 
+  }
+
+  .player1 {
+      background-color: green;
+      color: black;
+  }
+
+  .player2 {
+      background-color: orange;
+      color: black;
   }
