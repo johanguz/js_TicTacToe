@@ -1,0 +1,19 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  .container{
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+  }
+  
+  .box{
+    border: 1px solid salmon;
+    font-size: 12rem;
+    text-align: center;
+  }
