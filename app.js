@@ -107,13 +107,13 @@ const boardObject = () => {
                 gridElement.appendChild(grid);
                 grid.classList.add('box');
                 grid.addEventListener("click", () => {
-                    if (turn) {
+                    if (turn && boardState[i] === "") {
                         boardState[i] = "X";
                         turn = false;
                         drawBoard();
                         turnDisplay(turn);
                     }
-                    else {
+                    else if(!turn && boardState[i] === "") {
                         boardState[i] = "O";
                         turn = true;
                         drawBoard();
