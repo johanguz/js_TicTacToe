@@ -67,24 +67,6 @@ const boardObject = () => {
 
  if (players.length === 2) {
 
-    //  // Reset Button Logic
-    //  const resetGame = document.querySelector('.newGame');
-    //  const resetButton = document.createElement('div');
-    //          resetGame.appendChild(resetButton);
-    //          resetGame.classList.add('resetButton');
-    //      resetButton.innerHTML = `
-    //  <div class="container-fluid">
-    //  <div class="d-grid gap-2">
-    //  <button class="btn btn-danger" type="button">Reset Game</button>
-    //  </div>
-    //  </div>
-    //  </div>
-    //  `
-    //  resetButton.addEventListener("click", () => {
-    //     boardObject(players);
-    //    })
-     
-
         (() => {
             if (players[0].piece === "X") {
             player1 = players[0].name;
@@ -100,8 +82,8 @@ const boardObject = () => {
                 const turnElement = document.querySelector('.turn');
                     turnElement.innerHTML = `
                         <div class="container-fluid">
-                        <div class="row">
-                        <div class="col-12 player1">
+                        <div class="row d-flex justify-content-center">
+                        <div class="col-10 player1">
                             <h1>It's ${player1}'s turn</h1>
                         </div>
                         </div>
@@ -111,8 +93,8 @@ const boardObject = () => {
                 const turnElement = document.querySelector('.turn');
                     turnElement.innerHTML = `
                         <div class="container-fluid">
-                        <div class="row">
-                        <div class="col-12 player2">
+                        <div class="row d-flex justify-content-center">
+                        <div class="col-10 player2">
                             <h1>It's ${player2}'s turn</h1>
                         </div>
                         </div>
