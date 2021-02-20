@@ -1,7 +1,25 @@
 let players = [];
 let turn = true;
+let gameOver;
 
 const beginningState = () => {
+    //  Reset Button Logic
+     const resetGame = document.querySelector('.newGame');
+     const resetButton = document.createElement('div');
+             resetGame.appendChild(resetButton);
+             resetGame.classList.add('resetButton');
+         resetButton.innerHTML = `
+     <div class="container-fluid">
+     <div class="d-grid gap-2">
+     <button class="btn btn-danger" type="button">Reset Game</button>
+     </div>
+     </div>
+     </div>
+     `
+     resetButton.addEventListener("click", () => {
+        boardObject(players);
+       })
+     
     const gridHeader = document.querySelector('.header');
     const playerInput = document.createElement('div');
                 gridHeader.appendChild(playerInput);
@@ -39,16 +57,8 @@ const beginningState = () => {
                 playerFactory(`${player1Input.value}`, "X")}
             
             boardObject(players);
-
-
 })
-
-if (players.length === 2) {
-    boardObject(players);
 }
-}
-
-beginningState();
 
 const boardObject = () => {
     let player1;
@@ -56,6 +66,24 @@ const boardObject = () => {
     let boardState = ["", "", "", "", "", "", "", "", ""];
 
  if (players.length === 2) {
+
+    //  // Reset Button Logic
+    //  const resetGame = document.querySelector('.newGame');
+    //  const resetButton = document.createElement('div');
+    //          resetGame.appendChild(resetButton);
+    //          resetGame.classList.add('resetButton');
+    //      resetButton.innerHTML = `
+    //  <div class="container-fluid">
+    //  <div class="d-grid gap-2">
+    //  <button class="btn btn-danger" type="button">Reset Game</button>
+    //  </div>
+    //  </div>
+    //  </div>
+    //  `
+    //  resetButton.addEventListener("click", () => {
+    //     boardObject(players);
+    //    })
+     
 
         (() => {
             if (players[0].piece === "X") {
@@ -96,6 +124,7 @@ const boardObject = () => {
         
         (function newBoard () {
             boardState = ["", "", "", "", "", "", "", "", ""];
+            turn = true;
             turnDisplay(turn);
         })();
         
@@ -111,13 +140,73 @@ const boardObject = () => {
                         boardState[i] = "X";
                         turn = false;
                         drawBoard();
-                        turnDisplay(turn);
+                        if (isGameOver() === true) {
+                            boardState = ["", "", "", "", "", "", "", "", ""];
+                            turn = true;
+                            drawBoard();
+                            const turnElement = document.querySelector('.turn');
+                            turnElement.innerHTML = `
+                            <div class="container-fluid">
+                        <div class="row">
+                        <div class="col-12 player1">
+                            <h1>${player1} WINS!!!!</h1>
+                        </div>
+                        </div>
+                        </div>`
+                        }
+                        else if(isGameOver() === "tie") {
+                            boardState = ["", "", "", "", "", "", "", "", ""];
+                            turn = true;
+                            drawBoard();
+                            const turnElement = document.querySelector('.turn');
+                            turnElement.innerHTML = `
+                            <div class="container-fluid">
+                            <div class="row">
+                            <div class="col-12 player1">
+                                <h1>It's a Tie</h1>
+                            </div>
+                            </div>
+                            </div>`
+                        
+                        }
+                        else {
+                        turnDisplay(turn);}
                     }
                     else if(!turn && boardState[i] === "") {
                         boardState[i] = "O";
                         turn = true;
                         drawBoard();
-                        turnDisplay(turn);
+                        if (isGameOver() === true) {
+                            boardState = ["", "", "", "", "", "", "", "", ""];
+                            turn = true;
+                            drawBoard();
+                            const turnElement = document.querySelector('.turn');
+                            turnElement.innerHTML = `
+                            <div class="container-fluid">
+                            <div class="row">
+                            <div class="col-12 player1">
+                                <h1>${player2} WINS!!!!</h1>
+                            </div>
+                            </div>
+                            </div>`
+                        }
+                        else if(isGameOver() === "tie") {
+                            boardState = ["", "", "", "", "", "", "", "", ""];
+                            turn = true;
+                            drawBoard();
+                            const turnElement = document.querySelector('.turn');
+                            turnElement.innerHTML = `
+                            <div class="container-fluid">
+                            <div class="row">
+                            <div class="col-12 player1">
+                                <h1>It's a Tie</h1>
+                            </div>
+                            </div>
+                            </div>`
+                        
+                        }
+                        else {
+                            turnDisplay(turn);}
                     }
                 })
                 if (boardState[i] === null) {
@@ -132,7 +221,29 @@ const boardObject = () => {
             }
          })();
 
+        function isGameOver () {
+            if ((boardState[0] + boardState[1] + boardState[2]) === ("XXX" || "OOO") ||
+                (boardState[3] + boardState[4] + boardState[5]) === ("XXX" || "OOO") ||
+                (boardState[6] + boardState[7] + boardState[8]) === ("XXX" || "OOO") ||
+                (boardState[1] + boardState[4] + boardState[7]) === ("XXX" || "OOO") ||
+                (boardState[0] + boardState[3] + boardState[6]) === ("XXX" || "OOO") ||
+                (boardState[2] + boardState[5] + boardState[8]) === ("XXX" || "OOO") ||
+                (boardState[2] + boardState[4] + boardState[6]) === ("XXX" || "OOO") ||
+                (boardState[0] + boardState[4] + boardState[8]) === ("XXX" || "OOO"))
+            
+            {
+                   return true;
+                }
+            else if 
+                (boardState.indexOf("") === -1) {
+                   return "tie"
+            }
+            else {
+                    return false;
+            }
         }
+
+    }
 }
 
 // const playGame = (params) => {
@@ -147,3 +258,6 @@ function playerFactory(name, piece) {
     players.push({ name, piece });
     return { name, piece };
 }
+
+
+beginningState();
